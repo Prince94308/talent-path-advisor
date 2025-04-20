@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowUpRight, Search, Send } from "lucide-react";
+import { ArrowUpRight, Calendar, MessageSquare, Search, Send } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 // Mock conversation data

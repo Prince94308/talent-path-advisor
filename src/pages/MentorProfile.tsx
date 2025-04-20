@@ -42,7 +42,7 @@ const MENTOR = {
       year: "2001"
     }
   ],
-  experience: [
+  workExperience: [
     {
       role: "Professor of Computer Science",
       organization: "University of Washington",
@@ -199,7 +199,7 @@ const MentorProfile = () => {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">Professional Experience</h3>
                     <div className="space-y-3">
-                      {MENTOR.experience.map((exp, index) => (
+                      {MENTOR.workExperience.map((exp, index) => (
                         <div key={index} className="flex flex-col">
                           <span className="font-medium text-gray-900">{exp.role}</span>
                           <span className="text-gray-600">{exp.organization}, {exp.period}</span>
