@@ -3,8 +3,72 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, CheckCircle2, Mail, User } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/components/ui/use-toast";
 
 export function SignupForm() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleGoogleSignup = async () => {
+    setIsLoading(true);
+    try {
+      // In a real implementation with Supabase, you would use:
+      // await supabase.auth.signInWithOAuth({ provider: 'google' })
+      toast({
+        title: "Authentication required",
+        description: "Please connect this project to Supabase to enable Google authentication.",
+      });
+      
+      // Mock successful signup for demonstration purposes
+      setTimeout(() => {
+        navigate("/onboarding");
+        setIsLoading(false);
+      }, 1500);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Signup failed",
+        description: "There was an error signing up with Google.",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const handleEmailSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      // In a real implementation with Supabase, you would use:
+      // await supabase.auth.signUp({ email, password, options: { data: { firstName, lastName } } })
+      toast({
+        title: "Authentication required",
+        description: "Please connect this project to Supabase to enable email authentication.",
+      });
+      
+      // Mock successful signup for demonstration purposes
+      setTimeout(() => {
+        navigate("/onboarding");
+        setIsLoading(false);
+      }, 1500);
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Signup failed",
+        description: "There was an error creating your account.",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  const isPasswordValid = password.length >= 8 && /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md mx-auto">
       <div className="text-center mb-6">
@@ -13,7 +77,12 @@ export function SignupForm() {
       </div>
       
       <div className="space-y-4 mb-6">
-        <Button variant="outline" className="w-full flex items-center justify-center gap-2 h-11">
+        <Button 
+          variant="outline" 
+          className="w-full flex items-center justify-center gap-2 h-11"
+          onClick={handleGoogleSignup}
+          disabled={isLoading}
+        >
           <FaGoogle className="h-4 w-4" />
           <span>Sign up with Google</span>
         </Button>
@@ -28,7 +97,7 @@ export function SignupForm() {
         </div>
       </div>
       
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleEmailSignup}>
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
@@ -42,6 +111,9 @@ export function SignupForm() {
                 id="firstName"
                 placeholder="First name"
                 className="pl-10"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
               />
             </div>
           </div>
@@ -52,6 +124,9 @@ export function SignupForm() {
             <Input
               id="lastName"
               placeholder="Last name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -69,6 +144,9 @@ export function SignupForm() {
               type="email"
               placeholder="you@example.com"
               className="pl-10"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
         </div>
@@ -81,22 +159,29 @@ export function SignupForm() {
             id="password"
             type="password"
             placeholder="Create a strong password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
           <div className="mt-2 space-y-1">
             <div className="flex items-center text-xs text-gray-500">
-              <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+              <CheckCircle2 className={`h-3 w-3 mr-1 ${password.length >= 8 ? "text-green-500" : "text-gray-300"}`} />
               <span>At least 8 characters</span>
             </div>
             <div className="flex items-center text-xs text-gray-500">
-              <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+              <CheckCircle2 className={`h-3 w-3 mr-1 ${/[a-zA-Z]/.test(password) && /[0-9]/.test(password) ? "text-green-500" : "text-gray-300"}`} />
               <span>Contains letters and numbers</span>
             </div>
           </div>
         </div>
         
-        <Button type="submit" className="w-full bg-blue-800 hover:bg-blue-700">
-          Create account
-          <ArrowRight className="ml-2 h-4 w-4" />
+        <Button 
+          type="submit" 
+          className="w-full bg-blue-800 hover:bg-blue-700"
+          disabled={isLoading || !isPasswordValid}
+        >
+          {isLoading ? "Creating account..." : "Create account"}
+          {!isLoading && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
       </form>
       
