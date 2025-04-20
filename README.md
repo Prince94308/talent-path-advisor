@@ -1,8 +1,44 @@
-# Welcome to your Lovable project
+# PathFinder: AI-Powered Career Guidance Platform
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/919dbb33-3a0b-4382-b628-5c59ca49fafe
+
+## About PathFinder
+
+PathFinder is an AI-powered career guidance SaaS platform that helps users navigate their career journeys with personalized recommendations and skill development paths. The platform offers:
+
+- AI-driven career assessments
+- Personalized skill gap analysis
+- Career path visualization
+- Learning resources recommendations
+- Interactive dashboard to track progress
+
+## Next Steps for Implementation
+
+### Google Authentication
+
+To implement Google Authentication, you need to:
+
+1. Connect this project to Supabase using the Lovable's native Supabase integration
+2. Configure Google Auth in your Supabase project settings
+3. Implement the authentication flow in the Login and Signup components
+
+### Backend Integration with Supabase
+
+For full functionality, click the green Supabase button at the top right of the Lovable interface to connect this project to Supabase. This will enable:
+
+- User authentication
+- Database storage for user profiles and assessments
+- API endpoints for AI features
+- File storage for resources
+
+## Technologies Used
+
+- React with TypeScript
+- TailwindCSS for styling
+- shadcn/ui for UI components
+- AI integration (to be connected through Supabase)
 
 ## How can I edit this code?
 
